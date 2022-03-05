@@ -1,13 +1,17 @@
 package com.agisoft.bot.mathiou;
 
+import lombok.SneakyThrows;
+
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedDeque;
+
 public class ConsumerThread implements Runnable {
 
-    private ManagementConsole console;
-    private String serverId;
+    private Queue<String> msgs = new ConcurrentLinkedDeque<>();
     private boolean running = true;
+    private String serverId;
 
-    public ConsumerThread(final ManagementConsole console, final String serverId) {
-        this.console = console;
+    public ConsumerThread(final String serverId) {
         this.serverId = serverId;
     }
 
@@ -19,12 +23,14 @@ public class ConsumerThread implements Runnable {
     public void run() {
         System.out.println("Server: " + serverId + " Consumer thread: " +Thread.currentThread().getName() + " started successfully.");
         while(running) {
-            final String msg = console.receivedMsg();
+            final String msg = msgs.poll();
             if (msg != null) {
                 System.out.println("Server: " + serverId + " received: " + msg);
-            } else {
-                System.out.println("Msg queue is empty");
             }
         }
+    }
+
+    public void offer(final String msg) {
+        msgs.offer(msg);
     }
 }

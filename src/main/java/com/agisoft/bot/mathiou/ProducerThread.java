@@ -4,16 +4,11 @@ public class ProducerThread implements Runnable {
 
     private ManagementConsole main;
     private String serverId;
-//    private boolean running = true;
 
     public ProducerThread(final ManagementConsole main, final String serverId) {
         this.main = main;
         this.serverId = serverId;
     }
-
-//    public void stop() {
-//        running = false;
-//    }
 
     @Override
     public void run() {
@@ -21,7 +16,7 @@ public class ProducerThread implements Runnable {
         Integer i = 0;
         while(i < ManagementConsole.MAX_MSGS_TO_SEND) {
             ++i;
-            main.sendMsg(i.toString());
+            main.sendMsg("msg from server " + serverId + " : " + i.toString());
         }
         main.stopAll();
     }

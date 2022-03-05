@@ -1,22 +1,21 @@
 package com.agisoft.bot.mathiou;
 
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Server {
 
+
     private ExecutorService executor = Executors.newFixedThreadPool(2);
     private ProducerThread producer;
     private ConsumerThread consumer;
-    private ManagementConsole console;
-    private String serverId;
 
     public Server(final ManagementConsole console, final String serverId) {
-        this.console = console;
-        this.serverId = serverId;
         this.producer = new ProducerThread(console, serverId);
-        this.consumer = new ConsumerThread(console, serverId);
+        this.consumer = new ConsumerThread(serverId);
     }
 
     public void start() {
@@ -36,11 +35,7 @@ public class Server {
         }
     }
 
-    public void receivedMsg(final String msg) {
-        System.out.println("Received msg: " + msg);
-    }
-
-    public String getServerId() {
-        return serverId;
+    public void offer(final String msg) {
+        consumer.offer(msg);
     }
 }
