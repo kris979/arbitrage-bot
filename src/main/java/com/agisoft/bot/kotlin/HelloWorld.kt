@@ -1,18 +1,15 @@
 package com.agisoft.bot.kotlin
 
-class HelloWorld {
-}
-
 fun main() {
 
     val ver = 2
-    println("hello world " + ver)
+    println("hello world $ver")
 
-    var l = listOf("test", "test1")
+    val l = listOf("test", "test1")
     println(l)
 
-    var names: MutableMap<String, String> = mutableMapOf("kris" to "b")
-    names.put("mathiou", "k")
+    val names: MutableMap<String, String> = mutableMapOf("kris" to "b")
+    names["mathiou"] = "k"
     println(names)
 
 }
