@@ -1,4 +1,4 @@
-package com.agisoft.bot.kotlin
+package com.agisoft.bot.kotlin.collections
 
 fun main() {
 

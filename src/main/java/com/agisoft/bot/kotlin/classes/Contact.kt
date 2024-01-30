@@ -1,4 +1,4 @@
-package com.agisoft.bot.kotlin
+package com.agisoft.bot.kotlin.classes
 
 open class Contact (val id: Int, var email: String) {
     var category: String = ""
